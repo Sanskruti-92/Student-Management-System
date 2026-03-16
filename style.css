@@ -16,48 +16,71 @@ background:linear-gradient(135deg,#0b3c78,#2a6fdb);
 color:#333;
 }
 
-/* SIDEBAR */
 .sidebar{
-width:260px;
-background:rgba(255,255,255,0.95);
-padding:25px;
-height:100vh;
-position:fixed;
-left:0;
-top:0;
-box-shadow:4px 0 20px rgba(0,0,0,0.15);
-border-radius:0 20px 20px 0;
+    width:260px;
+    background:rgba(255,255,255,0.95);
+    padding:25px;
+    height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+    box-shadow:4px 0 20px rgba(0,0,0,0.15);
+    border-radius:0 20px 20px 0;
+
+    /* Added for scrollable sidebar */
+    overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 .sidebar h2{
-font-size:22px;
-margin-bottom:30px;
-text-align:center;
-color:#0b3c78;
+    font-size:22px;
+    margin-bottom:30px;
+    text-align:center;
+    color:#0b3c78;
 }
 
 .sidebar ul{
-list-style:none;
+    list-style:none;
 }
 
 .sidebar ul li{
-margin:15px 0;
+    margin:15px 0;
 }
 
 .sidebar ul li a{
-text-decoration:none;
-color:#333;
-font-weight:500;
-padding:10px 14px;
-display:block;
-border-radius:8px;
-transition:0.3s;
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+    padding:10px 14px;
+    display:block;
+    border-radius:8px;
+    transition:0.3s;
+}
+
+/* Active link style (for current page) */
+.sidebar ul li a.active{
+    background:#0b3c78;
+    color:white;
 }
 
 .sidebar ul li a:hover{
-background:#0b3c78;
-color:white;
-transform:translateX(5px);
+    background:#0b3c78;
+    color:white;
+    transform:translateX(5px);
+}
+
+/* Optional: custom scrollbar styling */
+.sidebar::-webkit-scrollbar{
+    width:6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background:#888;
+    border-radius:5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover{
+    background:#555;
 }
 
 /* MAIN AREA */
