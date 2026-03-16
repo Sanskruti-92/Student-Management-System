@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>College ERP</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+if(!localStorage.getItem("role")){
+window.location="login.html";
+}
+
+function logout(){
+localStorage.clear();
+window.location="login.html";
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2 style="color:black;">Student Management System (SMS)</h2>
+
+<ul>
+<li><a href="index.html">Dashboard</a></li>
+<li><a href="department.html">Departments</a></li>
+<li><a href="students.html">Students</a></li>
+<li><a href="teachers.html">Teachers</a></li>
+<li><a href="attendance.html">Attendance</a></li>
+<li><a href="marks.html">Report Card</a></li>
+<li><a href="fee.html">Fee</a></li>
+<li><a href="events.html">Events</a></li>
+<li><a href="exams.html">Exams</a></li>
+<li><a href="holidays.html">Holidays</a></li>
+<li><a href="#" onclick="logout()">Logout</a></li>
+</ul>
+
+</div>
+
+<div class="main">
+
+<h1 id="welcome" style="color:white;">WELCOME!!</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Students</h3>
+<p>120+</p>
+</div>
+
+<div class="card">
+<h3>Departments</h3>
+<p>6+</p>
+</div>
+
+<div class="card">
+<h3>Teachers</h3>
+<p>15+</p>
+</div>
+
+<div class="card">
+<h3>Attendance</h3>
+<p>85%</p>
+</div>
+
+</div>
+
+<h2 style="color:white;">Department Toppers</h2>
+
+<div class="topper-grid">
+
+<div class="topper-card">
+<img src="images/student1.jpg">
+<h3>Rahul Sharma</h3>
+<p>Computer Science</p>
+<p>CGPA: 9.8</p>
+<p>Percentage: 98%</p>
+<p>Subject: Data Structures</p>
+</div>
+
+<div class="topper-card">
+<img src="images\student.jpg">
+<h3>Anjali Verma</h3>
+<p>Civil</p>
+<p>CGPA: 9.7</p>
+<p>Percentage: 97%</p>
+<p>Subject: Structural Engineering</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student3.jpg">
+<h3>Gouri Reddy</h3>
+<p>Mechanical</p>
+<p>CGPA: 9.6</p>
+<p>Percentage: 96%</p>
+<p>Subject: Thermodynamics</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student4.jpg">
+<h3>Sneha Patel</h3>
+<p>ENC</p>
+<p>CGPA: 9.5</p>
+<p>Percentage: 95%</p>
+<p>Subject: Digital Electronics</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student5.jpg">
+<h3>Pooja Kumar</h3>
+<p>EEE</p>
+<p>CGPA: 9.7</p>
+<p>Percentage: 97%</p>
+<p>Subject: Power Systems</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student6.jpg">
+<h3>Priya Nair</h3>
+<p>IT</p>
+<p>CGPA: 9.8</p>
+<p>Percentage: 98%</p>
+<p>Subject: Cloud Computing</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student7.jpg">
+<h3>Kavya Patel</h3>
+<p>CSE</p>
+<p>CGPA: 9.7</p>
+<p>Percentage: 97%</p>
+<p>Subject: Power Systems</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student8.jpg">
+<h3>Varsha Honakalse</h3>
+<p>IT</p>
+<p>CGPA: 9.8</p>
+<p>Percentage: 98%</p>
+<p>Subject: Cloud Computing</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student10.jpeg">
+<h3>Nikhil Kulkarni</h3>
+<p>IT</p>
+<p>CGPA: 9.8</p>
+<p>Percentage: 98%</p>
+<p>Subject: Cloud Computing</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student11.jpg">
+<h3>Divya Deshmukh</h3>
+<p>IT</p>
+<p>CGPA: 9.8</p>
+<p>Percentage: 98%</p>
+<p>Subject: Cloud Computing</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student12.jpeg">
+<h3>Shreya Agarwal</h3>
+<p>IT</p>
+<p>CGPA: 9.8</p>
+<p>Percentage: 98%</p>
+<p>Subject: Cloud Computing</p>
+</div>
+
+<div class="topper-card">
+<img src="images/student14.jpeg">
+<h3>Shubham Tiwari</h3>
+<p>IT</p>
+<p>CGPA: 9.8</p>
+<p>Percentage: 98%</p>
+<p>Subject: Cloud Computing</p>
+</div>
+
+
+
+</div>
+
+<script>
+
+let role=localStorage.getItem("role");
+let dept=localStorage.getItem("department");
+
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>

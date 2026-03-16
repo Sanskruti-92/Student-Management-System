@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Exam Schedule</title>
+
+
+
+</head>
+<style>
+/* Body */
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8fafc;
+    color: #1f2937;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #0f172a;
+    margin-bottom: 20px;
+}
+h2 {
+    text-align: center;
+    font-size: 1.5em;
+    color: #1e3a8a;
+    margin: 30px 0 15px 0;
+}
+
+/* Form Section */
+.form-section {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Labels and Inputs */
+label {
+    display: block;
+    margin: 12px 0 5px 0;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+select, input[type="date"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.2s ease;
+    margin-bottom: 15px;
+}
+
+select:focus, input[type="date"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(37,99,235,0.3);
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Table Container */
+.table-container {
+    max-width: 900px;
+    margin: 0 auto 50px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background-color: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Delete Buttons */
+table button {
+    background-color: #ef4444;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    border-radius: 6px;
+}
+
+table button:hover {
+    background-color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-section, .table-container {
+        padding: 20px;
+    }
+
+    select, input[type="date"], button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    table {
+        font-size: 0.9em;
+    }
+}
+</style>
+<body>
+    
+
+<h1>Exam Schedule Management</h1>
+
+<h2>Add Exam</h2>
+
+<label>Department</label>
+<select id="dept" onchange="loadSubjects()">
+<option value="CSE">CSE</option>
+<option value="Mechanical">Mechanical</option>
+<option value="Civil">Civil</option>
+<option value="Electrical">Electrical</option>
+<option value="ECE">ECE</option>
+<option value="IT">IT</option>
+</select>
+
+<br><br>
+
+<label>Subject</label>
+
+<select id="subject"></select>
+
+<br><br>
+
+<label>Date</label>
+<input type="date" id="date">
+
+<br><br>
+
+<button onclick="addExam()">Add Exam</button>
+
+<hr>
+
+<h2>Exam List</h2>
+
+<table id="examTable">
+
+<tr>
+<th>Department</th>
+<th>Subject</th>
+<th>Date</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>CSE</td>
+<td>Programming</td>
+<td>2026-04-10</td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+
+<tr>
+<td>CSE</td>
+<td>Database</td>
+<td>2026-04-12</td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+
+<tr>
+<td>Mechanical</td>
+<td>Thermodynamics</td>
+<td>2026-04-14</td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+
+<tr>
+<td>Civil</td>
+<td>Structural Engineering</td>
+<td>2026-04-16</td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+
+<tr>
+<td>Electrical</td>
+<td>Power Systems</td>
+<td>2026-04-18</td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+
+<tr>
+<td>ECE</td>
+<td>Digital Electronics</td>
+<td>2026-04-20</td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+
+<tr>
+<td>IT</td>
+<td>Cyber Security</td>
+<td>2026-04-22</td>
+<td><button onclick="deleteRow(this)">Delete</button></td>
+</tr>
+
+</table>
+
+
+<script>
+
+/* subjects for each department */
+
+let subjects={
+
+CSE:["Programming","Data Structures","Database","Operating System","Web Development"],
+
+IT:["Programming","Database","Cloud Computing","Cyber Security","Software Engineering"],
+
+Mechanical:["Thermodynamics","Machine Design","Fluid Mechanics","Manufacturing","Heat Transfer"],
+
+Civil:["Structural Engineering","Surveying","Geotechnical","Transportation","Environmental"],
+
+Electrical:["Electrical Machines","Power Systems","Control Systems","Power Electronics","Circuit Theory"],
+
+ECE:["Electronic Circuits","Digital Electronics","Signals","Communication","Microprocessors"]
+
+};
+
+/* load subjects */
+
+function loadSubjects(){
+
+let dept=document.getElementById("dept").value;
+
+let subjectSelect=document.getElementById("subject");
+
+subjectSelect.innerHTML="";
+
+subjects[dept].forEach(sub=>{
+
+let option=document.createElement("option");
+
+option.text=sub;
+
+subjectSelect.add(option);
+
+});
+
+}
+
+/* add exam */
+
+function addExam(){
+
+let dept = document.getElementById("dept").value;
+
+let subject = document.getElementById("subject").value;
+
+let date = document.getElementById("date").value;
+
+let table = document.getElementById("examTable");
+
+let row = table.insertRow();
+
+row.insertCell(0).innerHTML = dept;
+row.insertCell(1).innerHTML = subject;
+row.insertCell(2).innerHTML = date;
+
+row.insertCell(3).innerHTML =
+"<button onclick='deleteRow(this)'>Delete</button>";
+
+}
+
+/* delete exam */
+
+function deleteRow(btn){
+
+let row = btn.parentNode.parentNode;
+
+row.parentNode.removeChild(row);
+
+}
+
+loadSubjects();
+
+</script>
+
+</body>
+</html>

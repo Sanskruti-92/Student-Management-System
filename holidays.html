@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Holiday Dashboard 2026</title>
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+    background-image: url("images/holiday.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height:100vh;
+    padding:40px;
+}
+/* Title */
+
+h1{
+text-align:center;
+color:rgb(9, 9, 9);
+margin-bottom:20px;
+}
+
+/* Controls */
+
+.controls{
+text-align:center;
+margin-bottom:20px;
+}
+
+input,select{
+padding:10px;
+border:none;
+border-radius:6px;
+margin:5px;
+width:200px;
+}
+
+/* Table */
+
+table{
+width:700px;
+margin:auto;
+border-collapse:collapse;
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 0 15px rgba(0,0,0,0.2);
+animation:glow 4s infinite alternate;
+}
+
+@keyframes glow{
+0%{box-shadow:0 0 10px #00f2fe;}
+100%{box-shadow:0 0 25px #4facfe;}
+}
+
+th{
+background:#2c3e50;
+color:white;
+padding:12px;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+
+tr:hover{
+background:#f1f7ff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎉 Student Holidays 2026</h1>
+
+<div class="controls">
+<input type="text" id="search" placeholder="🔍 Search Holiday">
+
+<select id="monthFilter">
+<option value="">All Months</option>
+<option>Jan</option>
+<option>Feb</option>
+<option>Mar</option>
+<option>Apr</option>
+<option>May</option>
+<option>Jun</option>
+<option>Jul</option>
+<option>Aug</option>
+<option>Sep</option>
+<option>Oct</option>
+<option>Nov</option>
+<option>Dec</option>
+</select>
+
+</div>
+
+<table id="holidayTable">
+
+<tr>
+<th>Date</th>
+<th>Holiday</th>
+</tr>
+
+<tr><td>1 Jan</td><td>🎆 New Year</td></tr>
+<tr><td>14 Jan</td><td>🌾 Makar Sankranti</td></tr>
+<tr><td>26 Jan</td><td class="independence">🇮🇳 Republic Day</td></tr>
+<tr><td>19 Feb</td><td>👑 Shivaji Jayanti</td></tr>
+<tr><td>8 Mar</td><td>👩 Women's Day</td></tr>
+<tr><td>18 Mar</td><td>🌿 Ugadi</td></tr>
+<tr><td>10 Apr</td><td>✝ Good Friday</td></tr>
+<tr><td>14 Apr</td><td>📚 Ambedkar Jayanti</td></tr>
+<tr><td>1 May</td><td>⚒ Labour Day</td></tr>
+<tr><td>7 Jun</td><td>🕌 Bakrid</td></tr>
+<tr><td>12 Jul</td><td>🚩 Rath Yatra</td></tr>
+<tr><td>15 Aug</td><td class="independence">🇮🇳 Independence Day</td></tr>
+<tr><td>27 Aug</td><td>🐘 Ganesh Chaturthi</td></tr>
+<tr><td>5 Sep</td><td>👨‍🏫 Teachers Day</td></tr>
+<tr><td>2 Oct</td><td>🕊 Gandhi Jayanti</td></tr>
+<tr><td>24 Oct</td><td>🏹 Dussehra</td></tr>
+<tr class="diwali"><td>12 Nov</td><td>🪔 Diwali</td></tr>
+<tr><td>15 Nov</td><td>🙏 Guru Nanak Jayanti</td></tr>
+<tr class="christmas"><td>24 Dec</td><td>🎄 Christmas Eve</td></tr>
+<tr class="christmas"><td>25 Dec</td><td>🎅 Christmas</td></tr>
+<tr><td>31 Dec</td><td>🎉 Year End Holiday</td></tr>
+
+</table>
+
+<script>
+
+/* Search Function */
+
+document.getElementById("search").addEventListener("keyup",function(){
+
+let value=this.value.toLowerCase();
+let rows=document.querySelectorAll("#holidayTable tr");
+
+rows.forEach(function(row){
+
+let text=row.innerText.toLowerCase();
+
+if(text.includes(value)){
+row.style.display="";
+}
+else{
+row.style.display="none";
+}
+
+});
+
+});
+
+/* Month Filter */
+
+document.getElementById("monthFilter").addEventListener("change",function(){
+
+let month=this.value;
+let rows=document.querySelectorAll("#holidayTable tr");
+
+rows.forEach(function(row){
+
+let date=row.children[0]?.innerText;
+
+if(!date) return;
+
+if(month=="" || date.includes(month)){
+row.style.display="";
+}
+else{
+row.style.display="none";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

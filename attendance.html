@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Attendance System</title>
+
+<style>
+
+/* General Body */
+body{
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+margin:0;
+padding:20px;
+background:#f0f4f8;
+color:#333;
+}
+
+/* Heading */
+h1{
+text-align:center;
+margin-bottom:25px;
+font-size:2em;
+color:#4a4a4a;
+}
+
+/* Controls */
+.controls{
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.05);
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-bottom:25px;
+}
+
+.controls select,
+.controls input{
+padding:10px 14px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:1em;
+}
+
+/* Buttons */
+
+button{
+padding:10px 18px;
+border:none;
+border-radius:8px;
+font-size:1em;
+cursor:pointer;
+transition:.2s;
+background:#4a90e2;
+color:white;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+/* Table */
+/* TABLE DESIGN */
+
+table{
+width:100%;
+border-collapse:separate;
+border-spacing:0;
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+
+th{
+background:linear-gradient(135deg,#4a90e2,#357ABD);
+color:white;
+padding:14px;
+font-weight:600;
+font-size:14px;
+letter-spacing:0.5px;
+}
+
+/* DATE HEADER */
+
+th:not(:first-child){
+min-width:110px;
+}
+
+/* CELLS */
+
+td{
+padding:12px;
+text-align:center;
+font-size:14px;
+}
+
+/* ROW COLORS */
+
+tr:nth-child(even){
+background:#f8fbff;
+}
+
+tr:hover{
+background:#eef5ff;
+transition:0.2s;
+}
+
+/* ATTENDANCE DROPDOWN */
+
+td select{
+padding:6px 8px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:13px;
+cursor:pointer;
+background:white;
+transition:0.2s;
+}
+
+/* DROPDOWN HOVER */
+
+td select:hover{
+border-color:#4a90e2;
+}
+
+/* PRESENT STYLE */
+
+td select option[value="Present"]{
+color:#28a745;
+font-weight:bold;
+}
+
+/* ABSENT STYLE */
+
+td select option[value="Absent"]{
+color:#e74c3c;
+font-weight:bold;
+}
+
+/* PERCENTAGE */
+
+.percent{
+font-weight:bold;
+color:#2c3e50;
+}
+
+/* DATE COLUMN STYLE */
+
+th{
+position:sticky;
+top:0;
+z-index:2;
+}
+.statusText{
+margin-left:6px;
+font-weight:bold;
+}
+
+.presentText{
+color:green;
+}
+
+.absentText{
+color:red;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Student Attendance System</h1>
+
+<div class="controls">
+
+<label>Select Department :</label>
+
+<select id="departmentSelect" onchange="loadDepartment()">
+<option value="CSE">CSE</option>
+<option value="ECE">ECE</option>
+<option value="MECH">MECH</option>
+<option value="CIVIL">CIVIL</option>
+<option value="EEE">EEE</option>
+<option value="IT">IT</option>
+</select>
+
+<label>Select Date :</label>
+<input type="date" id="attendanceDate">
+
+<button onclick="addDate()">Add Date</button>
+
+<input type="text" id="studentInput" placeholder="Enter Name or Reg No">
+
+<button onclick="addStudent()">Add Student</button>
+
+<button onclick="removeStudent()">Remove Student</button>
+
+</div>
+
+<table id="attendanceTable"></table>
+
+<script>
+
+/* Selected Date */
+
+let selectedDate = new Date().toISOString().split('T')[0];
+
+/* Store all dates */
+
+let dates = [];
+
+/* Student names */
+
+let departments={
+
+"CSE":[
+"Sohail Nandyal","Kaneez Fatima","Mohammad Shafeeq A Pendari",
+"Nagendra Chinnappa Bandivaddar","Aditi D Jadhav","Aditya Siddharoodh Malagoudar",
+"Aishwarya F Mathad","Aishwarya Siddappa Kakhanda ki","Akash Gurappa Kalburgi"
+],
+
+"ECE":[
+"Akshata Kabade","Anees Shaikh","Ankita Devsingh Rajaput",
+"Ankita Kabade","Apporva Mudhol","Arun Itagi",
+"Bhaganna","Bharati Sangappa Inchageri","Bushra Nandiyal"
+],
+
+"MECH":[
+"Channabasu Sajjan","Gouri Chinnakal Imath","Gururaj S Guggari",
+"Hemanth Ramappa Hulyal","Jyotiba Jadhav","Kartik Rajashekhar Rathod",
+"Laxmi Ingale","Mahalaxmi Somashekhar Kapali","Mallappa Bannur"
+],
+
+"CIVIL":[
+"Mallikarjun Shankar Sakri","Manoj Indi","Mohammad Asharaf Halli",
+"Mohammed Rehan Godihal","Prasanna Somashekhar Bandigani",
+"Reshma Zartargar","Rohit Basavaraj Vagga",
+"Sahebagouda Hipparagi","Sanskruti Kadam"
+],
+
+"EEE":[
+"Shridhar Irayya Hiremath","Siddarth Basappa Bellennavar",
+"Veena Suresh Heralagi","Prakash Dattarey Pujari",
+"Venkatesh Mallikarjun Patil","Vijaykumar Basappa Kalburgi",
+"Vinayak Mallikarjun Hanchinal","Vishal Shivanand Kittur"
+],
+
+"IT":[
+"Yallappa Hanamantappa Hanchinal","Yogesh Shankar Patil",
+"Yuvraj Basavaraj Pujari","Zaheer Ahmed Jamadar",
+"Zubair Ahmed Mulla","Zubair Shaikh",
+"Zunaid Ahmed Attar","Zubair Mohammed Nandiyal"
+]
+
+};
+
+/* Department codes */
+
+let deptCode={
+CSE:"CS",
+ECE:"EC",
+MECH:"ME",
+CIVIL:"CV",
+EEE:"EE",
+IT:"IT"
+};
+
+/* Storage */
+
+let studentData={};
+
+let regCounter={
+CSE:1,
+ECE:1,
+MECH:1,
+CIVIL:1,
+EEE:1,
+IT:1
+};
+
+/* Initialize students */
+
+Object.keys(departments).forEach(dept=>{
+
+studentData[dept]=[];
+
+departments[dept].forEach(name=>{
+
+let reg="120"+deptCode[dept]+"26"+String(regCounter[dept]).padStart(2,"0");
+
+studentData[dept].push({
+reg:reg,
+name:name,
+attendance:{}
+});
+
+
+regCounter[dept]++;
+
+});
+
+});
+
+/* Add Date */
+
+function addDate(){
+
+let date=document.getElementById("attendanceDate").value;
+
+if(date==""){
+alert("Please select a date");
+return;
+}
+
+/* prevent duplicate */
+
+if(dates.includes(date)){
+alert("Date already added");
+return;
+}
+
+dates.push(date);
+
+loadDepartment();
+
+}
+
+/* Load department */
+
+function loadDepartment(){
+
+let dept=document.getElementById("departmentSelect").value;
+
+let table=document.getElementById("attendanceTable");
+
+/* Create header */
+
+let header=`
+<tr>
+<th>Reg No</th>
+<th>Name</th>
+<th>Department</th>
+`;
+
+dates.forEach(d=>{
+header+=`<th>${d}</th>`;
+});
+
+header+=`<th>Attendance %</th></tr>`;
+
+table.innerHTML=header;
+
+/* Students */
+
+studentData[dept].forEach((student,index)=>{
+
+let total=Object.keys(student.attendance).length;
+
+let present=Object.values(student.attendance).filter(v=>v=="Present").length;
+
+let percent=total==0?0:Math.round((present/total)*100);
+
+
+
+let row=table.insertRow();
+
+let cells=`
+<td>${student.reg}</td>
+<td>${student.name}</td>
+<td>${dept}</td>
+`;
+
+dates.forEach(d=>{
+
+let status=student.attendance[d] || "";
+
+cells+=`
+<td>
+<select onchange="updateStatus(this,${index},'${d}')">
+<option value="">Select</option>
+<option value="Present" ${status=="Present"?"selected":""}>Present</option>
+<option value="Absent" ${status=="Absent"?"selected":""}>Absent</option>
+</select>
+<span class="statusText ${status=="Present"?"presentText":status=="Absent"?"absentText":""}">
+${status}
+</span>
+</td>
+`;
+
+});
+
+cells+=`<td class="percent">${percent}%</td>`;
+
+row.innerHTML=cells;
+
+});
+
+}
+
+/* Update attendance */
+
+function updateStatus(select,index,date){
+
+let dept=document.getElementById("departmentSelect").value;
+
+let student=studentData[dept][index];
+
+let statusText=select.nextElementSibling;
+
+/* Save attendance */
+student.attendance[date]=select.value;
+
+/* TEXT COLOR */
+
+if(select.value=="Present"){
+statusText.innerText="Present";
+statusText.className="statusText presentText";
+}
+
+else if(select.value=="Absent"){
+statusText.innerText="Absent";
+statusText.className="statusText absentText";
+}
+
+loadDepartment();
+
+}
+
+
+
+/* Remove student */
+
+function removeStudent(){
+
+let dept=document.getElementById("departmentSelect").value;
+
+let value=document.getElementById("studentInput").value.trim();
+
+let students=studentData[dept];
+
+let index=students.findIndex(student =>
+student.reg==value || student.name.toLowerCase()==value.toLowerCase()
+);
+
+if(index==-1){
+alert("Student not found");
+return;
+}
+
+students.splice(index,1);
+
+document.getElementById("studentInput").value="";
+
+loadDepartment();
+
+}
+
+/* Load page */
+
+loadDepartment();
+
+</script>
+</body>
+</html>

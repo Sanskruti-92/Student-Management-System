@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>College ERP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI;
+  scroll-behavior:smooth;
+}
+
+/* NAVBAR */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 80px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+  z-index:100;
+}
+.logo{
+  font-size:26px;
+  font-weight:bold;
+  color:#0b3c78;
+}
+.menu a{
+  margin:0 15px;
+  text-decoration:none;
+  color:#333;
+  font-weight:500;
+}
+.menu a:hover{
+  color:#f4b400;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  background-image:url("images/collage3.avif");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:120px;
+  color:white;
+  position:relative;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.55);
+  z-index:-1;
+}
+.hero-text{
+  max-width:500px;
+}
+.hero-text h1{
+  font-size:70px;
+  margin-bottom:20px;
+}
+.hero-text p{
+  font-size:25px;
+  
+}
+.hero-text button{
+  background:#f4b400;
+  border:none;
+  padding:12px 25px;
+  font-size:16px;
+  cursor:pointer;
+  border-radius:5px;
+}
+
+/* LOGIN CARD */
+.login-card{
+  background:white;
+  padding:40px;
+  width:420px;
+  border-radius:12px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.3);
+  color:black;
+}
+.login-title{
+  background:#f4b400;
+  padding:10px;
+  margin:-30px -30px 20px -30px;
+  text-align:center;
+  font-weight:bold;
+}
+input,select{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border:1px solid #ccc;
+  border-radius:5px;
+  font-size:16px;
+}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:none;
+  background:#f4b400;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:16px;
+}
+#create{
+  background:#00c853;
+  color:white;
+}
+#error{
+  font-size:14px;
+  margin-top:5px;
+  color:red;
+}
+
+/* FEATURES */
+section{
+  padding:80px;
+  text-align:center;
+}
+.section-title{
+  font-size:34px;
+  margin-bottom:40px;
+  color:#0b3c78;
+}
+.features{
+  display:flex;
+  flex-wrap:wrap;
+  gap:25px;
+  justify-content:center;
+}
+.feature{
+  width:220px;
+  background:#f7f7f7;
+  padding:25px;
+  border-radius:8px;
+  transition:0.3s;
+}
+.feature:hover{
+  transform:translateY(-6px);
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+.feature i{
+  font-size:40px;
+  color:#f4b400;
+  margin-bottom:10px;
+}
+
+/* ABOUT */
+#about{
+padding:80px 10%;
+background:#f5f7fb;
+}
+
+.section-title{
+text-align:center;
+font-size:34px;
+margin-bottom:50px;
+color:#1e3a8a;
+}
+
+.about-container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+/* Left Side */
+
+.about-left{
+text-align:center;
+}
+
+.about-img{
+width:120px;
+margin-bottom:20px;
+}
+
+.about-left p{
+line-height:1.7;
+color:#444;
+margin-bottom:30px;
+}
+
+/* Stats */
+
+.about-stats{
+display:flex;
+justify-content:center;
+gap:40px;
+}
+
+.stat h3{
+color:#2563eb;
+font-size:28px;
+}
+
+.stat p{
+font-size:14px;
+color:#555;
+}
+
+/* Right Side */
+
+#about{
+padding:80px 8%;
+background:#f5f7fb;
+}
+
+.section-title{
+text-align:center;
+font-size:34px;
+margin-bottom:50px;
+color:#1e3a8a;
+}
+
+.about-boxes{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}
+
+.about-box{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+text-align:center;
+transition:0.3s;
+}
+
+.about-box:hover{
+transform:translateY(-8px);
+}
+
+.about-box h3{
+color:#2563eb;
+margin-bottom:10px;
+}
+
+/* responsive */
+
+@media(max-width:900px){
+.about-boxes{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:600px){
+.about-boxes{
+grid-template-columns:1fr;
+}
+}
+
+/* CONTACT */
+#contact{
+padding:80px 8%;
+background:#f5f7fb;
+}
+
+.contact-cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+}
+
+.contact-card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+text-align:center;
+transition:0.3s;
+}
+
+.contact-card:hover{
+transform:translateY(-6px);
+}
+
+.contact-card h3{
+color:#2563eb;
+margin-bottom:10px;
+}
+
+.contact-card p{
+color:#555;
+line-height:1.6;
+}
+
+/* responsive */
+
+@media(max-width:900px){
+.contact-cards{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:500px){
+.contact-cards{
+grid-template-columns:1fr;
+}
+}
+
+/* FOOTER */
+footer{
+  background:#0b3c78;
+  color:white;
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+   <div class="logo">"Education is the key to Unlock the Golden Door of FREEDOM."</div>
+
+<style>
+
+.logo{
+  font-size:26px;
+  font-weight:bold;
+  font-family:Poppins, sans-serif;
+  color:#030377;
+  
+
+  display:inline-block;
+  overflow:hidden;
+  white-space:nowrap;
+  border-right:3px solid #dfdee8;
+
+  animation: typing 8s steps(70,end) infinite alternate,
+             blink 0.7s step-end infinite;
+}
+
+/* Type and delete */
+@keyframes typing{
+  from{
+    width:0;
+  }
+  to{
+    width:70ch;
+  }
+}
+
+/* Cursor blink */
+@keyframes blink{
+  50%{
+    border-color:transparent;
+  }
+}
+
+</style>
+
+</style>
+  
+  <div class="menu">
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="home">
+  <div class="hero-text">
+    <h1>Student Management System</h1>
+    <p>Manage students, attendance, results and staff easily with our powerful Student Management System platform.</p>
+    <button onclick="document.getElementById('features').scrollIntoView()">Explore Features</button>
+  </div>
+
+  <div class="login-card">
+    <div class="login-title">Login / Register</div>
+    <select id="role">
+      <option value="hod">HOD</option>
+      <option value="teacher">Teacher</option>
+    </select>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button id="create" onclick="createAccount()">Create Account</button>
+    <p id="error"></p>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+<h2 class="section-title">Student Management System Features</h2>
+<div class="features">
+  <div class="feature"><i class="fa fa-user-graduate"></i><h3>Students</h3><p>Manage student records.</p></div>
+  <div class="feature"><i class="fa fa-calendar-check"></i><h3>Attendance</h3><p>Track daily attendance.</p></div>
+  <div class="feature"><i class="fa fa-chart-bar"></i><h3>Results</h3><p>Manage exam results.</p></div>
+  <div class="feature"><i class="fa fa-book"></i><h3>Courses</h3><p>Organize courses easily.</p></div>
+  <div class="feature"><i class="fa fa-user-tie"></i><h3>Teachers</h3><p>Manage staff details.</p></div>
+  <div class="feature"><i class="fa fa-bell"></i><h3>Notifications</h3><p>Send important notices.</p></div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+
+<h2 class="section-title">About Student Management System</h2>
+
+<div class="about-boxes">
+
+<div class="about-box">
+<h3>📚 Student Management</h3>
+<p>Store and manage student information in an organized system.</p>
+</div>
+
+<div class="about-box">
+<h3>👨‍🏫 Teacher Records</h3>
+<p>Maintain teacher profiles and department details easily.</p>
+</div>
+
+<div class="about-box">
+<h3>📅 Attendance System</h3>
+<p>Track and manage daily student attendance efficiently.</p>
+</div>
+
+<div class="about-box">
+<h3>📝 Exam Management</h3>
+<p>Organize exam schedules and maintain academic records.</p>
+</div>
+
+<div class="about-box">
+<h3>💰 Fee Tracking</h3>
+<p>Monitor fee payments and pending balances clearly.</p>
+</div>
+
+<div class="about-box">
+<h3>📊 Reports</h3>
+<p>Generate academic reports and useful statistics.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+
+<h2 class="section-title">Contact Us</h2>
+
+<div class="contact-cards">
+
+<div class="contact-card">
+<h3>📍 Address</h3>
+<p>Dept. of CSE<br>
+Government Polytechnic<br>
+Vijayapura, Karnataka</p>
+</div>
+
+<div class="contact-card">
+<h3>📞 Phone</h3>
+<p>+91 98765 43210<br>
++91 87654 32109</p>
+</div>
+
+<div class="contact-card">
+<h3>✉️ Email</h3>
+<p>collegeerp@gmail.com<br>
+support@collegeerp.com</p>
+</div>
+
+<div class="contact-card">
+<h3>🕒 Office Hours</h3>
+<p>Monday - Friday<br>
+9:00 AM – 5:00 PM</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>© 2026 Student Management System</footer>
+
+<script>
+// CREATE ACCOUNT
+function createAccount(){
+    let role = document.getElementById("role").value.trim();
+    let user = document.getElementById("username").value.trim();
+    let pass = document.getElementById("password").value.trim();
+
+    if(user=="" || pass==""){
+        document.getElementById("error").style.color="red";
+        document.getElementById("error").innerText="Enter username and password";
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // prevent duplicate username for same role
+    for(let u of users){
+        if(u.username.toLowerCase() === user.toLowerCase() && u.role === role){
+            document.getElementById("error").style.color="red";
+            document.getElementById("error").innerText="Account already exists!";
+            return;
+        }
+    }
+
+    users.push({role, username: user, password: pass});
+    localStorage.setItem("users", JSON.stringify(users));
+
+    document.getElementById("error").style.color="green";
+    document.getElementById("error").innerText="Account Created! Now Login";
+}
+
+// LOGIN
+function login(){
+    let role = document.getElementById("role").value.trim();
+    let user = document.getElementById("username").value.trim();
+    let pass = document.getElementById("password").value.trim();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    for(let u of users){
+        if(u.username === user && u.password === pass && u.role === role){
+            localStorage.setItem("loginUser", user);
+            localStorage.setItem("role", role);
+            window.location = "index.html";
+            return;
+        }
+    }
+
+    document.getElementById("error").style.color="red";
+    document.getElementById("error").innerText="Wrong login details";
+}
+</script>
+
+</body>
+</html>

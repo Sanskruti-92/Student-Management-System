@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Fee Management</title>
+
+<style>
+
+/* Reset */
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
+}
+
+/* Body */
+body{
+background:#f4f6fb;
+padding:30px;
+}
+
+/* Header */
+.header{
+background:#2563eb;
+color:white;
+padding:20px;
+border-radius:8px;
+margin-bottom:25px;
+}
+
+.header h1{
+font-size:30px;
+}
+
+/* Top controls */
+.controls{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:20px;
+flex-wrap:wrap;
+}
+
+label{
+font-weight:600;
+font-size:16px;
+}
+
+/* Select */
+select{
+padding:10px 12px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+select:focus{
+outline:none;
+border-color:#2563eb;
+}
+
+/* Table */
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+border-radius:8px;
+overflow:hidden;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Header row */
+th{
+background:#1e3a8a;
+color:white;
+padding:14px;
+text-align:center;
+}
+
+/* Cells */
+td{
+padding:12px;
+text-align:center;
+border-bottom:1px solid #eee;
+}
+
+/* Row hover */
+tr:hover{
+background:#f8fafc;
+}
+
+/* Inputs */
+input[type="number"]{
+width:90px;
+padding:6px;
+border-radius:6px;
+border:1px solid #ccc;
+text-align:center;
+}
+
+/* Fee status */
+.pending{
+color:red;
+font-weight:bold;
+}
+
+.paid{
+color:green;
+font-weight:bold;
+}
+
+/* Responsive */
+@media(max-width:800px){
+
+.controls{
+flex-direction:column;
+align-items:flex-start;
+}
+
+table{
+font-size:14px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>Fee Management</h1>
+</div>
+
+<div class="controls">
+
+<label>Select Department :</label>
+
+<select id="departmentSelect" onchange="loadDepartment()">
+
+<option value="CSE">CSE</option>
+<option value="ECE">ECE</option>
+<option value="MECH">MECH</option>
+<option value="CIVIL">CIVIL</option>
+<option value="EEE">EEE</option>
+<option value="IT">IT</option>
+
+</select>
+
+</div>
+
+<table id="feeTable">
+
+<tr>
+<th>Reg No</th>
+<th>Name</th>
+<th>Department</th>
+<th>Total Fee</th>
+<th>Paid Fee</th>
+<th>Pending Fee</th>
+</tr>
+
+</table>
+
+<script>
+
+/* students */
+
+let departments={
+
+CSE:[
+"Sohail Nandyal",
+"Kaneez Fatima",
+"Mohammad Shafeeq A Pendari",
+"Nagendra Chinnappa Bandivaddar",
+"Aditi D Jadhav",
+"Aditya Siddharoodh Malagoudar",
+"Aishwarya F Mathad",
+"Aishwarya Siddappa Kakhanda ki",
+"Akash Gurappa Kalburgi"
+],
+
+ECE:[
+"Akshata Kabade",
+"Anees Shaikh",
+"Ankita Devsingh Rajaput",
+"Ankita Kabade",
+"Apporva Mudhol",
+"Arun Itagi",
+"Bhaganna",
+"Bharati Sangappa Inchageri",
+"Bushra Nandiyal"
+],
+
+MECH:[
+"Channabasu Sajjan",
+"Gouri Chinnakal Imath",
+"Gururaj S Guggari",
+"Hemanth Ramappa Hulyal",
+"Jyotiba Jadhav",
+"Kartik Rajashekhar Rathod",
+"Laxmi Ingale",
+"Mahalaxmi Somashekhar Kapali",
+"Mallappa Bannur"
+],
+
+CIVIL:[
+"Mallikarjun Shankar Sakri",
+"Manoj Indi",
+"Mohammad Asharaf Halli",
+"Mohammed Rehan Godihal",
+"Prasanna Somashekhar Bandigani",
+"Reshma Zartargar",
+"Rohit Basavaraj Vagga",
+"Sahebagouda Hipparagi",
+"Sanskruti Kadam"
+],
+
+EEE:[
+"Shridhar Irayya Hiremath",
+"Siddarth Basappa Bellennavar",
+"Veena Suresh Heralagi",
+"Venkatesh Mallikarjun Patil",
+"Muskan Makashi",
+"Prakash Dattarey Pujari",
+"Venkatesh Mallikarjun Patil",
+"Vijaykumar Basappa Kalburgi",
+"Vinayak Mallikarjun Hanchinal",
+"Vishal Shivanand Kittur"
+],
+
+IT:[
+"Yallappa Hanamantappa Hanchinal",
+"Yogesh Shankar Patil",
+"Yuvraj Basavaraj Pujari",
+"Zaheer Ahmed Jamadar",
+"Zubair Ahmed Mulla",
+"Zubair Shaikh",
+"Zunaid Ahmed Attar",
+"Zubair Mohammed Nandiyal"
+]
+
+};
+
+let deptCode={
+CSE:"CS",
+ECE:"EC",
+MECH:"ME",
+CIVIL:"CV",
+EEE:"EE",
+IT:"IT"
+};
+
+let regCounter={
+CSE:1,
+ECE:1,
+MECH:1,
+CIVIL:1,
+EEE:1,
+IT:1
+};
+
+function loadDepartment(){
+
+let dept=document.getElementById("departmentSelect").value;
+
+let table=document.getElementById("feeTable");
+
+table.innerHTML=`
+
+<tr>
+<th>Reg No</th>
+<th>Name</th>
+<th>Department</th>
+<th>Total Fee</th>
+<th>Paid Fee</th>
+<th>Pending Fee</th>
+</tr>
+
+`;
+
+regCounter[dept]=1;
+
+departments[dept].forEach(name=>{
+
+let reg="120"+deptCode[dept]+"26"+String(regCounter[dept]).padStart(2,"0");
+
+let row=table.insertRow();
+
+row.innerHTML=`
+
+<td>${reg}</td>
+<td>${name}</td>
+<td>${dept}</td>
+
+<td>
+<input type="number" value="5000">
+</td>
+
+<td>
+<input type="number" onkeyup="calculate(this)">
+</td>
+
+<td class="pending">0</td>
+
+`;
+
+regCounter[dept]++;
+
+});
+
+}
+
+function calculate(input){
+
+let row=input.parentElement.parentElement;
+
+let total=row.cells[3].children[0].value;
+
+let paid=input.value;
+
+let pending=total-paid;
+
+let cell=row.cells[5];
+
+cell.innerText=pending;
+
+if(pending==0){
+cell.className="paid";
+}
+else{
+cell.className="pending";
+}
+
+}
+
+loadDepartment();
+
+</script>
+
+</body>
+
+</html>
