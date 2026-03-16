@@ -20,16 +20,16 @@ color:#333;
     width:260px;
     background:rgba(255,255,255,0.95);
     padding:25px;
-    height:100vh;
+    height:100vh;              /* Full viewport height */
     position:fixed;
     left:0;
     top:0;
     box-shadow:4px 0 20px rgba(0,0,0,0.15);
     border-radius:0 20px 20px 0;
 
-    /* Added for scrollable sidebar */
-    overflow-y: auto;
-    scroll-behavior: smooth;
+    overflow-y: auto;          /* Enable vertical scroll */
+    overflow-x: hidden;        /* Hide horizontal scroll */
+    scroll-behavior: smooth;   /* Smooth scroll */
 }
 
 .sidebar h2{
@@ -41,6 +41,8 @@ color:#333;
 
 .sidebar ul{
     list-style:none;
+    padding: 0;                /* Ensure no extra padding */
+    margin: 0;
 }
 
 .sidebar ul li{
@@ -57,7 +59,7 @@ color:#333;
     transition:0.3s;
 }
 
-/* Active link style (for current page) */
+/* Active link style (current page) */
 .sidebar ul li a.active{
     background:#0b3c78;
     color:white;
@@ -69,7 +71,7 @@ color:#333;
     transform:translateX(5px);
 }
 
-/* Optional: custom scrollbar styling */
+/* Scrollbar styling */
 .sidebar::-webkit-scrollbar{
     width:6px;
 }
