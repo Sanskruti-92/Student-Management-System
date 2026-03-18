@@ -60,7 +60,7 @@ button:hover{
 transform:translateY(-2px);
 }
 
-/* Table */
+
 /* TABLE DESIGN */
 
 table{
@@ -193,7 +193,18 @@ color:red;
 
 <button onclick="addDate()">Add Date</button>
 
-<input type="text" id="studentInput" placeholder="Enter Name or Reg No">
+<input type="text" id="nameInput" placeholder="Enter Name">
+
+<input type="text" id="regInput" placeholder="Enter Reg No">
+
+<select id="deptInput">
+<option value="CSE">CSE</option>
+<option value="ECE">ECE</option>
+<option value="MECH">MECH</option>
+<option value="CIVIL">CIVIL</option>
+<option value="EEE">EEE</option>
+<option value="IT">IT</option>
+</select>
 
 <button onclick="addStudent()">Add Student</button>
 
@@ -304,6 +315,42 @@ regCounter[dept]++;
 });
 
 });
+function addStudent(){
+
+let name = document.getElementById("nameInput").value.trim();
+let reg = document.getElementById("regInput").value.trim();
+let dept = document.getElementById("deptInput").value;
+
+/* Validation */
+if(name === "" || reg === ""){
+alert("Please enter Name and Reg No");
+return;
+}
+
+/* Check duplicate Reg No */
+let exists = studentData[dept].some(s => s.reg === reg);
+
+if(exists){
+alert("Reg No already exists!");
+return;
+}
+
+/* Add student */
+studentData[dept].push({
+reg: reg,
+name: name,
+attendance: {}
+});
+
+/* Clear fields */
+document.getElementById("nameInput").value = "";
+document.getElementById("regInput").value = "";
+
+/* Reload table */
+
+loadDepartment();
+
+}
 
 /* Add Date */
 
